@@ -1,0 +1,4 @@
+{
+    "sketch": "Capteur\\main.ino",
+    "board": "arduino:avr:uno"
+}
