@@ -2,9 +2,9 @@
 #include <SPI.h>
 #include <MFRC522.h>
 #include <capteur.cpp>
+#include <afficheur.cpp>
 
-
-
+ScannerRFID scannerRFID(10, 9);
 
 
 void setup() {
@@ -18,7 +18,8 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   String uid;
-  ScannerRFID scannerRFID(10, 9);
+
+
   if(scannerRFID.scanCard(uid)){
     Serial.println("Card detected: ");
     Serial.println(uid);
