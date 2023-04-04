@@ -19,18 +19,19 @@ class Afficheur {
   public:
     Afficheur(String nomFichier, int posX, int posY);
     void afficher();
-
+    void Afficheur(String nomFichier, int posX, int posY) {
+      _nomFichier = nomFichier;
+      _posX = posX;
+      _posY = posY;
+    }
+         
   private:
     String _nomFichier;
     int _posX;
     int _posY;
 };
 
-Afficheur::Afficheur(String nomFichier, int posX, int posY) {
-  _nomFichier = nomFichier;
-  _posX = posX;
-  _posY = posY;
-}
+
 
 void Afficheur::afficher() {
   // Chargement de la photo de l'élève
