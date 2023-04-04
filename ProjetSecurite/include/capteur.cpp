@@ -1,4 +1,9 @@
 #include <MFRC522.h>
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
 class ScannerRFID {
   public:
 
@@ -35,6 +40,34 @@ class ScannerRFID {
       }
       
   private: 
+    String find_user(String uid){
+      string uid;
+      string name;
+      string surname;
+      string id;
+      vector<User> users;
+      users = {
+            {"00000000", "Khabib", "Nurmagomedov", "1"},
+            {"00000001", "Cedric", "Doumbe", "2"},
+            {"00000002", "Conor", "McGregor", "3"},
+            {"00000003", "Mike", "Tyson", "4"},
+            {"00000004", "Mohamed", "Ali", "5"},
+            {"00000005", "Jhon", "Jones", "6"},
+            {"00000006", "Cyril", "Gane", "7"}
+        };
+      for (const auto& user : users) {
+        if (user.uid == uid) {
+            // return the name and surname of the user
+            return user.name + " " + user.surname;
+          }
+      }
+
+        // user with the given uid not found
+        return "";
+    }
+
+      return name + " " + surname;
+    }
 
     MFRC522 mfrc522;
 
