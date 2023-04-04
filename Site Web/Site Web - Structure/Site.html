@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    
+    <p id="screen"></p>
+    <p id="window"></p>
+    <p id="page"></p>
+
+  <script>
+
+    // Get the size of the device screen
+    var screenWidth = screen.width;
+    var screenHeight = screen.height;
+
+    // Get the browser window size
+    var windowWidth = window.innerWidth;
+    var windowHeight = window.innerHeight;
+
+    // Get the size of the entire webpage
+    const pageWidth  = document.documentElement.scrollWidth;
+    const pageHeight = document.documentElement.scrollHeight;
+
+    // Showing the sizes on the webpage
+    var x = document.getElementById("screen");
+    x.innerHTML = "Device Screen: width: " + screenWidth + ", height: " + screenHeight + ".";
+
+    var y = document.getElementById("window");
+    y.innerHTML = "Browser Window: width: " + windowWidth + ", height: " + windowHeight + ".";
+
+    var z = document.getElementById("page");
+    z.innerHTML = "Webpage: width:" + pageWidth + ", height: " + pageHeight + ".";
+
+  </script>
+  
+  <head>
+    <meta charset="utf-8">
+
+    <title>Site controle d'accés</title>
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Les trois lignes ci‑dessous sont un correctif pour que la sémantique
+          HTML5 fonctionne correctement avec les anciennes versions de
+          Internet Explorer-->
+    <!--[if lt IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <!-- Voici notre en‑tête principale utilisée dans toutes les pages
+          de notre site web -->
+    <header>
+    </header>
+
+    <nav>
+      <ul>
+      </ul>
+
+        <!-- Un formulaire de recherche est une autre façon de naviguer de
+            façon non‑linéaire dans un site.
+
+        <form>
+          <input type="search" name="q" placeholder="Rechercher">
+          <input type="submit" value="Lancer !">
+        </form> -->
+
+    </nav>
+
+    <!-- Ici nous mettons le contenu de la page -->
+    <main>
+        
+    </main>
+
+    <style>
+        /*
+          Figma Background for illustrative/preview purposes only.
+          You can remove this style tag with no consequence
+        */
+        body {background: #E5E5E5; }
+    </style>
+
+    	<div class=background>
+  	<div class="mask"></div>
+  	<div class="secondmask"></div>
+  	<div class="whiteboard"></div>
+
+
+    <!-- Et voici notre pied de page utilisé sur toutes les pages du site -->
+    <footer>
+      <p>©Copyright 2023 par Aurelien Muller. Tous droits reversés.</p>
+    </footer>
+
+  </body>
+</html>

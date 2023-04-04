@@ -1,0 +1,25 @@
+.background { 
+	overflow:hidden;
+}
+.mask { 
+	background-color:rgba(6.000000117346644, 6.000000117346644, 6.000000117346644, 1);
+	width:1600px;
+	height:960px;
+	position:absolute;
+}
+.secondmask { 
+	background-color:rgba(108.37500303983688, 108.37500303983688, 108.37500303983688, 1);
+	width:1600px;
+	height:960px;
+	position:absolute;
+	left:0px;
+	top:0px;
+}
+.whiteboard { 
+	background-color:rgba(215.68750709295273, 212.09271758794785, 212.09271758794785, 1);
+	width:800px;
+	height:915px;
+	position:absolute;
+	left:771px;
+	top:27px;
+}
