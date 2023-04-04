@@ -5,40 +5,6 @@
 using namespace std;
 
 class ScannerRFID {
-  public:
-
-      /// @brief Init mrfc522 with the given parameters
-      /// @param ssPin 
-      /// @param rstPin 
-      ScannerRFID(int ssPin, int rstPin): mfrc522(ssPin, rstPin){}
-
-
-      /// @brief Begin SPI and MRFC Connection
-      void begin(){
-
-        SPI.begin();
-        mfrc522.PCD_Init();
-      }
-      /// @brief Scan the card and return the UUID
-      /// @param uid 
-      /// @return String var UUID of the card str format
-      bool scanCard(String& uid){
-  
-        if (!mfrc522.PICC_IsNewCardPresent() || !mfrc522.PICC_ReadCardSerial()) {
-            return false;
-          }
-
-          uid = "";
-          for (byte i = 0; i < mfrc522.uid.size; i++) {
-            if (mfrc522.uid.uidByte[i] < 0x10) {
-              uid += "0";
-            }
-            uid += String(mfrc522.uid.uidByte[i], HEX);
-          }
-          uid.toUpperCase();
-          return true;
-      }
-      
   private: 
     String find_user(String uid){
       string uid;
@@ -65,11 +31,44 @@ class ScannerRFID {
         // user with the given uid not found
         return "";
     }
-
-      return name + " " + surname;
-    }
-
+  public:
+    string userinfo;
+    int ssPin;
+    int rstPin;
     MFRC522 mfrc522;
 
+      /// @brief Init mrfc522 with the given parameters
+      /// @param ssPin 
+      /// @param rstPin 
+      ScannerRFID(int ssPin, int rstPin): mfrc522(ssPin, rstPin){}
 
-};
+
+      /// @brief Begin SPI and MRFC Connection
+      void begin(){
+
+        SPI.begin();
+        mfrc522.PCD_Init();
+      }
+      /// @brief Scan the card and return the UUID
+      /// @param uid 
+      /// @return String var userinfo of the card string format
+      bool scanCard(String& uid){
+  
+        if (!mfrc522.PICC_IsNewCardPresent() || !mfrc522.PICC_ReadCardSerial()) {
+            return false;
+          }
+
+          uid = "";
+          for (byte i = 0; i < mfrc522.uid.size; i++) {
+            if (mfrc522.uid.uidByte[i] < 0x10) {
+              uid += "0";
+            }
+            uid += String(mfrc522.uid.uidByte[i], HEX);
+          }
+          uid.toUpperCase();
+          return true;
+        string userinfo = find_user(uid);
+      }
+      
+  
+    };
