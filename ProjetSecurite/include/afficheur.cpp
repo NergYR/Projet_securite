@@ -2,29 +2,63 @@
 #include <Adafruit_TFTLCD.h>
 #include <SD.h>
 #include <opencv2/opencv.hpp>
-class afficheur
-{
-private:
-    Adafruit_TFTLCD lcd(LCD_CS, LCD_CD, LCD_WR, LCD_RD, LCD_RESET);
-public:
-    /// @brief Init afficheur with given params
-    /// @param lcd_cs
-    /// @param lcd_cd
-    /// @param lcd_wr
-    /// @param lcd_rd
-    /// @param lcd_reset
-    /// @param sd_cs 
-    afficheur(String& lcd_cs, String& lcd_cd, String& lcd_wr, String& lcd_rd, String& lcd_reset, int sd_cs);
-    
-};
 
-
-
-
-
+// Configuration de l'écran TFT LCD shield
+#define LCD_CS A3
+#define LCD_CD A2
+#define LCD_WR A1
+#define LCD_RD A0
+#define LCD_RESET A4
+Adafruit_TFTLCD lcd(LCD_CS, LCD_CD, LCD_WR, LCD_RD, LCD_RESET);
 
 // Configuration de la carte SD
 #define SD_CS 10
+
+// Classe Afficheur pour afficher la photo et le nom de l'élève
+class Afficheur {
+  public:
+    Afficheur(String nomFichier, int posX, int posY);
+    void afficher();
+
+  private:
+    String _nomFichier;
+    int _posX;
+    int _posY;
+};
+
+Afficheur::Afficheur(String nomFichier, int posX, int posY) {
+  _nomFichier = nomFichier;
+  _posX = posX;
+  _posY = posY;
+}
+
+void Afficheur::afficher() {
+  // Chargement de la photo de l'élève
+  cv::Mat photo = cv::imread(_nomFichier.c_str());
+
+  // Conversion de la photo en un tableau de pixels
+  uint16_t pixels[photo.rows][photo.cols];
+  for (int y = 0; y < photo.rows; y++) {
+    for (int x = 0; x < photo.cols; x++) {
+      cv::Vec3b pixel = photo.at<cv::Vec3b>(y, x);
+      uint16_t color = lcd.color565(pixel[2], pixel[1], pixel[0]); // Convertit la couleur en un format compatible avec l'écran
+      pixels[y][x] = color;
+    }
+  }
+
+  // Affichage de la photo sur l'écran TFT LCD shield
+  lcd.setAddrWindow(_posX, _posY, _posX + photo.cols - 1, _posY + photo.rows - 1);
+  for (int y = 0; y < photo.rows; y++) {
+    lcd.pushColors(pixels[y], photo.cols, false);
+  }
+
+  // Affichage du nom de l'élève sous la photo
+  String nomEleve = _nomFichier.substring(0, _nomFichier.indexOf('.'));
+  lcd.setCursor(_posX + (lcd.width() - nomEleve.length() * 6) / 2, _posY + photo.rows + 10); // Centre le texte sous la photo
+  lcd.setTextColor(WHITE);
+  lcd.setTextSize(2);
+  lcd.print(nomEleve);
+}
 
 void setup() {
   // Initialisation de l'écran TFT LCD shield
@@ -38,31 +72,9 @@ void setup() {
     while (1);
   }
 
-  // Chargement de la photo de l'élève
-  cv::Mat photo = cv::imread("eleve.jpg");
-
-  // Conversion de la photo en un tableau de pixels
-  uint16_t pixels[photo.rows][photo.cols];
-  for (int y = 0; y < photo.rows; y++) {
-    for (int x = 0; x < photo.cols; x++) {
-      cv::Vec3b pixel = photo.at<cv::Vec3b>(y, x);
-      uint16_t color = lcd.color565(pixel[2], pixel[1], pixel[0]); // Convertit la couleur en un format compatible avec l'écran
-      pixels[y][x] = color;
-    }
-  }
-
-  // Affichage de la photo sur l'écran TFT LCD shield
-  lcd.setAddrWindow(0, 0, photo.cols - 1, photo.rows - 1);
-  for (int y = 0; y < photo.rows; y++) {
-    lcd.pushColors(pixels[y], photo.cols, false);
-  }
-
-  // Affichage du nom de l'élève sous la photo
-  String nomEleve = "Nom de l'élève";
-  lcd.setCursor((lcd.width() - nomEleve.length() * 6) / 2, photo.rows + 10); // Centre le texte sous la photo
-  lcd.setTextColor(WHITE);
-  lcd.setTextSize(2);
-  lcd.print(nomEleve);
+  // Affichage de la photo et du nom de l'élève
+  Afficheur afficheur("eleve.jpg", 20, 20);
+  afficheur.afficher();
 }
 
 void loop() {
