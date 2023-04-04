@@ -5,7 +5,7 @@
 class afficheur
 {
 private:
-
+    Adafruit_TFTLCD lcd(LCD_CS, LCD_CD, LCD_WR, LCD_RD, LCD_RESET);
 public:
     /// @brief Init afficheur with given params
     /// @param lcd_cs
@@ -13,18 +13,15 @@ public:
     /// @param lcd_wr
     /// @param lcd_rd
     /// @param lcd_reset
-    afficheur(String& lcd_cs, String& lcd_cd, String& lcd_wr, String& lcd_rd, String& lcd_reset);
+    /// @param sd_cs 
+    afficheur(String& lcd_cs, String& lcd_cd, String& lcd_wr, String& lcd_rd, String& lcd_reset, int sd_cs);
+    
 };
 
 
 
-// Configuration de l'écran TFT LCD shield
-#define LCD_CS A3
-#define LCD_CD A2
-#define LCD_WR A1
-#define LCD_RD A0
-#define LCD_RESET A4
-Adafruit_TFTLCD lcd(LCD_CS, LCD_CD, LCD_WR, LCD_RD, LCD_RESET);
+
+
 
 // Configuration de la carte SD
 #define SD_CS 10
