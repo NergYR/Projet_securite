@@ -6,7 +6,13 @@ using namespace std;
 
 class ScannerRFID {
   private: 
-    String find_user(String uid){
+
+    
+    /// @brief User struct
+    /// @brief Find the user with the given uid    
+    /// @param uid
+    /// @return the name and surname of the user
+    string find_user(string uid){
       string uid;
       string name;
       string surname;
