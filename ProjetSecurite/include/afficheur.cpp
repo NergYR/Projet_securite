@@ -21,7 +21,10 @@ class Afficheur {
       _nomFichier = nomFichier;
       _posX = posX;
       _posY = posY;
+      initialiserEcran();
+      initialiserSD();
     }
+
     void afficher() {
       // Chargement de la photo de l'élève
       cv::Mat photo = cv::imread(_nomFichier.c_str());
@@ -35,11 +38,13 @@ class Afficheur {
           pixels[y][x] = color;
         }
       }
+
       // Affichage de la photo sur l'écran TFT LCD shield
       lcd.setAddrWindow(_posX, _posY, _posX + photo.cols - 1, _posY + photo.rows - 1);
       for (int y = 0; y < photo.rows; y++) {
         lcd.pushColors(pixels[y], photo.cols, false);
       }
+
       // Affichage du nom de l'élève sous la photo
       String nomEleve = _nomFichier.substring(0, _nomFichier.indexOf('.'));
       lcd.setCursor(_posX + (lcd.width() - nomEleve.length() * 6) / 2, _posY + photo.rows + 10); // Centre le texte sous la photo
@@ -52,27 +57,21 @@ class Afficheur {
     String _nomFichier;
     int _posX;
     int _posY;
+
     // Fonction pour initialiser l'écran TFT LCD shield
-   void initialiserEcran() {
-     lcd.begin(0x9341);
-     lcd.setRotation(1);
-     lcd.fillScreen(BLACK);
-   }
+    void initialiserEcran() {
+      lcd.begin(0x9341);
+      lcd.setRotation(1);
+      lcd.fillScreen(BLACK);
+    }
 
-   // Fonction pour initialiser la carte SD
-   void initialiserSD() {
-     if (!SD.begin(SD_CS)) {
-       Serial.println("Erreur de carte SD");
-       while (1);
-     }
-   }
-
-   // Fonction pour afficher l'élève sur l'écran
-   void afficherEleve(String nomFichier, int posX, int posY) {
-     afficheur(nomFichier, posX, posY);
-     afficher();
-   }
-
+    // Fonction pour initialiser la carte SD
+    void initialiserSD() {
+      if (!SD.begin(SD_CS)) {
+        Serial.println("Erreur de carte SD");
+        while (1);
+      }
+    }
 };
 
 void loop() {
