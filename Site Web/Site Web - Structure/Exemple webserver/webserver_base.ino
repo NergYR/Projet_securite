@@ -66,9 +66,22 @@ void loop() {
           client.println("Connnection: close");
           client.println();
           client.println("<!DOCTYPE HTML>");
-          client.println("<html>");
-                    // add a meta refresh tag, so the browser pulls again every 5 seconds:
-          client.println("<meta http-equiv=\"refresh\" content=\"5\">");
+          client.println("<html>"); // start html
+
+          client.println("<head>"); // start head
+            client.println("<meta charset="utf-8">"); // utf
+            client.println("<title>Site controle d'accés</title>"); // web title
+            client.println("<meta name="viewport" content="width=device-width, initial-scale=1">"); // auto scale website
+          client.println("</head>"); // end head
+
+          client.println("<body>"); // start body
+            client.println("<style>"); // start style
+             client.println("body {background: rgba(108.37500303983688, 108.37500303983688, 108.37500303983688, 1); }"); // background change ?
+            client.println("</style>"); // end style
+          client.println("<body>"); // end body
+
+          client.println("<meta http-equiv=\"refresh\" content=\"5\">"); // add a meta refresh tag, so the browser pulls again every 5 seconds
+        
           // output the value of each analog input pin
           for (int analogChannel = 0; analogChannel < 6; analogChannel++) {
             int sensorReading = analogRead(analogChannel);
@@ -78,6 +91,8 @@ void loop() {
             client.print(sensorReading);
             client.println("<br />");       
           }
+
+
           client.println("</html>");
           break;
         }
