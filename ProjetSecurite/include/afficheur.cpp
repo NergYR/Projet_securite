@@ -52,24 +52,28 @@ class Afficheur {
     String _nomFichier;
     int _posX;
     int _posY;
-    void setup() {
-   // Initialisation de l'écran TFT LCD shield
-   lcd.begin(0x9341);
-   lcd.setRotation(1); // Rotation de l'écran
-   lcd.fillScreen(BLACK); // Fond noir
-
-   // Initialisation de la carte SD
-   if (!SD.begin(SD_CS)) {
-     Serial.println("Erreur de carte SD");
-     while (1);
+    // Fonction pour initialiser l'écran TFT LCD shield
+   void initialiserEcran() {
+     lcd.begin(0x9341);
+     lcd.setRotation(1);
+     lcd.fillScreen(BLACK);
    }
 
-   // Affichage de la photo et du nom de l'élève
-   afficheur("eleve.jpg", 20, 20);
-   afficheur.afficher();
-  }
-};
+   // Fonction pour initialiser la carte SD
+   void initialiserSD() {
+     if (!SD.begin(SD_CS)) {
+       Serial.println("Erreur de carte SD");
+       while (1);
+     }
+   }
 
+   // Fonction pour afficher l'élève sur l'écran
+   void afficherEleve(String nomFichier, int posX, int posY) {
+     afficheur(nomFichier, posX, posY);
+     afficher();
+   }
+
+};
 
 void loop() {
   // Le code ne fait rien dans la boucle principale
