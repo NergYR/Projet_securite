@@ -1,27 +1,45 @@
 .background { 
 	overflow:hidden;
 }
-.mask { 
-	background-color:rgba(6.000000117346644, 6.000000117346644, 6.000000117346644, 1);
-	width:1600px;
-	height:960px;
-	position:absolute;
+
+body{
+	overflow:hidden;
 }
-.frame { 
-	background-color:rgba(108.37500303983688, 108.37500303983688, 108.37500303983688, 1);
-	width:1600px;
-	height:960px;
-	position:absolute;
+
+.box{
+	background-color: rgb(49, 49, 49);
+	height: 800px;
+	width: 1900px;
+
 }
-.box { 
-	background-color:rgba(215.68750709295273, 212.09271758794785, 212.09271758794785, 1);
-	width:800px;
-	height:915px;
-	position:relative;
-	left:60%;
-	top:1%;
-	filter: blur(2px);
+
+.list-container {
+	height: 800px;
+	overflow: hidden;
 }
+
+.list {
+	overflow-y: scroll; /* Enable vertical scrolling */
+	height: 100%; /* Set the height of the list */
+	width: 1200px;
+	align: center; /* Remove default margin */
+	padding: 0; /* Remove default padding */
+	list-style-type: none; /* Remove bullet points */
+	
+  }
+  
+  .list li {
+	margin: 25px 25px;
+	padding: 25px 16px; /* Add padding to list items */
+	border: 1px solid #494949; /* Add border between list items */
+	border-radius: 25px;
+	
+  }
+  
+  .list li:last-child {
+	border-bottom: none; /* Remove border on last list item */
+	
+  }
 
 /*
 .e117_8 { 
