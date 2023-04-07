@@ -1,7 +1,7 @@
 #include <Adafruit_GFX.h>
-#include <Adafruit_TFTLCD.h>
 #include <SD.h>
 #include <opencv2/opencv.hpp>
+#include <Adafruit_TFTLCD.h>
 
 // Configuration de l'écran TFT LCD shield
 #define LCD_CS A3
