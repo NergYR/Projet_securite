@@ -74,6 +74,7 @@ class Afficheur {
     }
 };
 
+
 void loop() {
   // Le code ne fait rien dans la boucle principale
 }
