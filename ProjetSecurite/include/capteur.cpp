@@ -13,20 +13,21 @@ class ScannerRFID {
     /// @param uid
     /// @return the name and surname of the user
     string find_user(string uid){
-      string uid;
-      string name;
-      string surname;
-      string id;
-      vector<User> users;
-      users = {
-            {"00000000", "Khabib", "Nurmagomedov", "1"},
-            {"00000001", "Cedric", "Doumbe", "2"},
-            {"00000002", "Conor", "McGregor", "3"},
-            {"00000003", "Mike", "Tyson", "4"},
-            {"00000004", "Mohamed", "Ali", "5"},
-            {"00000005", "Jhon", "Jones", "6"},
-            {"00000006", "Cyril", "Gane", "7"}
-        };
+      struct User {
+        string uid;
+        string name;
+        string surname;
+        string id;
+      };
+      vector<User> users = {
+        {"00000000", "Khabib", "Nurmagomedov", "1"},
+        {"00000001", "Cedric", "Doumbe", "2"},
+        {"00000002", "Conor", "McGregor", "3"},
+        {"00000003", "Mike", "Tyson", "4"},
+        {"00000004", "Mohamed", "Ali", "5"},
+        {"00000005", "Jhon", "Jones", "6"},
+        {"00000006", "Cyril", "Gane", "7"}
+      };
       for (const auto& user : users) {
         if (user.uid == uid) {
             // return the name and surname of the user
@@ -55,10 +56,11 @@ class ScannerRFID {
         SPI.begin();
         mfrc522.PCD_Init();
       }
+
       /// @brief Scan the card and return the UUID
       /// @param uid 
       /// @return String var userinfo of the card string format
-      bool scanCard(String& uid){
+      bool scanCard(string& uid){
   
         if (!mfrc522.PICC_IsNewCardPresent() || !mfrc522.PICC_ReadCardSerial()) {
             return false;
@@ -69,11 +71,12 @@ class ScannerRFID {
             if (mfrc522.uid.uidByte[i] < 0x10) {
               uid += "0";
             }
-            uid += String(mfrc522.uid.uidByte[i], HEX);
+            uid += string(mfrc522.uid.uidByte[i], HEX);
           }
-          uid.toUpperCase();
+
+          userinfo = find_user(uid);
+
           return true;
-        string userinfo = find_user(uid);
       }
       
   
