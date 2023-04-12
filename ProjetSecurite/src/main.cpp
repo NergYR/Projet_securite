@@ -1,6 +1,4 @@
 #include <Arduino.h>
-#include <SPI.h>
-#include <MFRC522.h>
 #include <capteur.cpp>
 #include <afficheur.cpp>
 
@@ -11,7 +9,7 @@ ScannerRFID scannerRFID(10, 9);
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
-  ScannerRFID begin();
+  scannerRFID.begin();
 
 }
 
@@ -19,13 +17,13 @@ void setup() {
 void loop() {
 
   // put your main code here, to run repeatedly:
-  String uid;
 
-
-  if(scannerRFID.scanCard(uid)){
-    Serial.println("Card detected: ");
-    Serial.println(uid);
+  if (scannerRFID.scanCard()) {
+    Serial.println(scannerRFID.userinfo.c_str());
   }
+
+
+
 
 
 }
