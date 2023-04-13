@@ -21,8 +21,8 @@ class ScannerRFID {
           string id;
         };
         vector<User> users = {
-          {"00000000", "Khabib", "Nurmagomedov", "1"},
-          {"00000001", "Cedric", "Doumbe", "2"},
+          {"01020304", "Louis", "moi", "1"},
+          {"00000001", "Aurelien", "Lautre", "2"},
           {"00000002", "Conor", "McGregor", "3"},
           {"00000003", "Mike", "Tyson", "4"},
           {"00000004", "Mohamed", "Ali", "5"},
@@ -37,7 +37,7 @@ class ScannerRFID {
         }
 
           // user with the given uid not found
-          return "";
+          return "unknown";
       }
       string userinfo;
       int ssPin;
@@ -59,7 +59,7 @@ class ScannerRFID {
 
       /// @brief Scan the card and return the UUID
       /// @param uid 
-      /// @return String var userinfo of the card string format
+      /// @return userinfo String var userinfo of the card string format
       bool scanCard(){
   
         if (!mfrc522.PICC_IsNewCardPresent() || !mfrc522.PICC_ReadCardSerial()) {
